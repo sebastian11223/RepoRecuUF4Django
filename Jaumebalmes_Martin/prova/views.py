@@ -1,19 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.template import loader, context
+from django.template import Context,loader
 
-# Create your views here.
 # def index(request):
+#     professor = {"name":"Martín", "surname":"Casco", "age":"20"}
 #     template = loader.get_template('index.html')
-#     return HttpResponse(template.render())
+#     dades = template.render({'nombre':professor["name"], 'surname':professor["surname"], 'age':professor["age"]})
+#     return HttpResponse(dades)
 
 def index(request):
-    professor = {"name":"Martín", "surname":"Casco", "age":"20"}
-    template = loader.get_template('index.html')
-    dades = template.render({'nombre':professor["name"], 'surname':professor["surname"], 'age':professor["age"]})
-    return HttpResponse(dades)
-
-def index(request):
+#    template = loader.get_template('index.html')
+#    return HttpResponse(template.render())
     context = {'students':ListaAlumnos,'teachers':ListaProfes}
     return render(request, 'index.html', context)
 
@@ -21,20 +18,43 @@ def index(request):
 # def student(request):
 #     estudiantes = {"name":"Pepe", "surname":"Perales", "age":"25", "clase":"2"}
 #     contexto = {'estudiantes': estudiantes}
-#     return render(request, 'student.html', contexto)
+#     return render(request, 'students.html', contexto)
 
 # def teachers(request):
 #     profesores = {"name":"Juan", "surname":"Ronda", "age":"50", "asignatura":"matemáticas"}
 #     context = {'profes': profesores}
-#     return render(request,'teacher.html', context)
+#     return render(request,'teachers.html', context)
+
 
 def student(request):
-    stu = {"name":"Pepe", "surname":"Perales", "age":"25", "clase":"2"}
-    return render(request, 'student.html', {'stu':stu["name"]})
+   
+    contexto = {'estudiantes': ListaAlumnos}
+    return render(request, 'students.html', contexto)
+
 
 def teachers(request):
-    teach = {"name":"Juan", "surname":"Ronda", "age":"50", "asignatura":"matemáticas"}
-    return render(request, 'teacher.html', {'teach':teach})
+    
+    context = {'profes': ListaProfes}
+    return render(request,'teachers.html', context)
+
+
+
+
+
+
+def estudiantes(request, pk):
+    student_Obj = None
+    for s in ListaAlumnos:
+        if s['id'] == int(pk):
+            student_Obj = s
+    return render(request, 'student.html', {'stu':student_Obj})
+
+def profesores(request, pk):
+    profe_Obj = None
+    for t in ListaProfes:
+        if t['id'] == int(pk):
+            profe_Obj = t
+    return render(request, 'teacher.html', {'teach': profe_Obj})
 
 
 

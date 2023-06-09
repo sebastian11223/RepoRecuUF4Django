@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+  
+  
+    {% block content %}
+    <h1>Pagina index con los datos de STUDENTS</h1>
+<h1>Alumno con id {{estudiantes.id}}</h1>
+
+    
+    {% for s in estudiantes %}
+    <ul>
+    <li>Id: {{s.id}}</li>
+    <li>Nom:  <a href="student/{{s.id}}"> {{s.name}} </a> </li>
+    <li>Cognom: {{s.surname}}</li>
+    <li>Edat: {{s.age}}</li>
+    <li>Clase: {{s.clase}}</li>
+    </ul>
+    {% endfor %}
+
+
+
+
+{% endblock %}
+

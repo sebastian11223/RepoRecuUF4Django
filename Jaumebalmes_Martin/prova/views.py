@@ -18,6 +18,24 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+# def student(request):
+#     estudiantes = {"name":"Pepe", "surname":"Perales", "age":"25", "clase":"2"}
+#     contexto = {'estudiantes': estudiantes}
+#     return render(request, 'student.html', contexto)
+
+# def teachers(request):
+#     profesores = {"name":"Juan", "surname":"Ronda", "age":"50", "asignatura":"matemáticas"}
+#     context = {'profes': profesores}
+#     return render(request,'teacher.html', context)
+
+def student(request):
+    stu = {"name":"Pepe", "surname":"Perales", "age":"25", "clase":"2"}
+    return render(request, 'student.html', {'stu':stu["name"]})
+
+def teachers(request):
+    teach = {"name":"Juan", "surname":"Ronda", "age":"50", "asignatura":"matemáticas"}
+    return render(request, 'teacher.html', {'teach':teach})
+
 
 
 

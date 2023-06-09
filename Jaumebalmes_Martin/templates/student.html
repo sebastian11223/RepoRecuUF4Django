@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block content %}
+<p>Benvinguts a la pàgina users de la app Juegos!</p>
+<p>Dades alumnes:</p>
+<ul>
+
+    <li>id: {{stu.id}} </li> 
+    <li>nombre: {{stu.name}}</li> 
+    <li>apellido: {{stu.surname}}</li> 
+    <li>edad: {{stu.age}}</li>
+    <li><a  href="{% url 'students' %}"> más informació</a></li>   
+
+</ul>
+
+{% endblock %}

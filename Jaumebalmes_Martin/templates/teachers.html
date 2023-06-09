@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<h1>Pagina index con los datos de TEACHERS</h1>
+
+{% for t in profes %}
+<ul>
+<li>Id: {{t.id}}</li>
+<li>Nom: <a href="teacher/{{t.id}}"> {{t.name}}</a></li>
+<li>Cognom: {{t.surname}}</li>
+<li>Edat: {{t.age}}</li>
+<li>Asignatura: {{t.asignatura}}</li>
+</ul>
+{% endfor %}
+
+{% endblock %}

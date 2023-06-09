@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+{% block content %}
+<p>Benvinguts a la pàgina prof de la app Juegos!</p>
+<p>Dades Professor:</p>
+<ul>
+  
+    <li>id: {{teach.id}} </li> 
+    <li>nombre: {{teach.name}}</li> 
+    <li>apellido: {{teach.surname}}</li> 
+    <li>edad: {{teach.age}}</li>
+    <li><a  href="{% url 'teachers' %}"> más informació</a></li>        
+</ul>
+{% endblock %}

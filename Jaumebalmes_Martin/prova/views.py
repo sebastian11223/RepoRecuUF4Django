@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse 
 from django.template import loader
 from django.template import Context, loader
@@ -203,3 +203,16 @@ def create_person(request):
         form = PersonForm()
     
     return render(request, 'create_person.html', {'form': form})
+
+# Funcion Update
+def update_person(request, pk):
+    # tratamos errores con get_object_or_404
+    person = get_object_or_404(Person, pk=pk)
+    if request.method == 'POST':
+        form = PersonForm(request.POST, instance=person)
+        if form.is_valid():
+            form.save()
+            return redirect('person_list')
+    else:
+        form = PersonForm(instance=person)
+    return render(request, 'update_person.html', {'form': form})

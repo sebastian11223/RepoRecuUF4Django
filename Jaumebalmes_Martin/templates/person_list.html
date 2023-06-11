@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <h1>Person List</h1>
+
+  {% if persons %}
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Age</th>
+          <th>Nationality</th>
+          <th>City</th>
+          <th>Province</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for person in persons %}
+          <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td>{{ person.surname }}</td>
+            <td>{{ person.age }}</td>
+            <td>{{ person.nationality }}</td>
+            <td>{{ person.city }}</td>
+            <td>{{ person.province }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No persons found.</p>
+  {% endif %}
+{% endblock %}

@@ -11,5 +11,9 @@ urlpatterns = [
     path('user-form/', views.user_form, name='user_form'),
     path('index_one/', views.index_one, name='index_one'),
     # path('', views.students, name='students')
+
+    # paths para el crud
+    path('person/create/', views.create_person, name='create_person'),
+    path('person/list/', views.person_list, name='person_list'),
 ]
 

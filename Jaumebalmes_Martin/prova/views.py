@@ -4,7 +4,7 @@ from django.template import loader
 from django.template import Context, loader
 from django.shortcuts import render, redirect
 from .forms import PersonForm
-
+from .models import Person
 
 # def index(request):
 #     professor = {"name":"Martín", "surname":"Casco", "age":"20"}
@@ -179,3 +179,27 @@ ListaAlumnos = [
         "age": 43,
         "clase":"5",
     }]
+
+
+
+
+# Parte CRUD
+
+# Con esta funcion obtendremos todos los registros anteriores
+def person_list(request):
+    persons = Person.objects.all()
+    context = {'persons': persons}
+    # pasamos a un html en el cual veremos los registros
+    return render(request, 'person_list.html', context)
+
+# Funcion create
+def create_person(request):
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('person_list')
+    else:
+        form = PersonForm()
+    
+    return render(request, 'create_person.html', {'form': form})

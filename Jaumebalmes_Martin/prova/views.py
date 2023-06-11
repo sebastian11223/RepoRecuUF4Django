@@ -1,6 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import Context,loader
+from django.http import HttpResponse 
+from django.template import loader
+from django.template import Context, loader
+from django.shortcuts import render, redirect
+from .forms import PersonForm
+
 
 # def index(request):
 #     professor = {"name":"Martín", "surname":"Casco", "age":"20"}
@@ -55,6 +59,56 @@ def profesores(request, pk):
         if t['id'] == int(pk):
             profe_Obj = t
     return render(request, 'teacher.html', {'teach': profe_Obj})
+
+
+
+
+# apartado formulario
+
+
+def user_form(request):
+    form = PersonForm()
+
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index_one')
+    context = {'form':form}
+    return render(request, 'form.html', context)
+
+
+
+def update_user(request, pk):
+    person = Person.objects.get(id = pk)
+    form = PersonForm(instance=person)
+
+    if request.metho == 'POST':
+          form = PersonForm(request.POST, instance=person)
+          if form.is_valid():
+                form.save()
+                return redirect('index_one')
+    context = {'form':form}
+    return render (request, 'form.html', context)
+
+
+
+# ###################
+
+
+def index_one(request):
+    if request.method == 'POST':
+        # Procesar los datos del formulario si se envía el formulario
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index_one')  # Redirigir a la misma página después de guardar los datos
+    else:
+        form = PersonForm()
+
+    context = {'form': form}
+    return render(request, 'index_one.html', context)
+
 
 
 

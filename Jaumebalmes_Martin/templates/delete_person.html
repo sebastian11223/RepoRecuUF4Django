@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <h2>Delete Person</h2>
+  <p>Estás seguro de borrar la selección?{{ person.name }}?</p>
+  <form method="post" action="{% url 'delete_person' person.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+  </form>
+{% endblock %}

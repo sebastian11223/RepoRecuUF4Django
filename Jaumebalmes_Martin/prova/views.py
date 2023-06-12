@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse 
 from django.template import loader
 from django.template import Context, loader
 from django.shortcuts import render, redirect
 from .forms import PersonForm
-
+from .models import Person
 
 # def index(request):
 #     professor = {"name":"Martín", "surname":"Casco", "age":"20"}
@@ -179,3 +179,48 @@ ListaAlumnos = [
         "age": 43,
         "clase":"5",
     }]
+
+
+
+
+# Parte CRUD
+
+# Con esta funcion obtendremos todos los registros anteriores
+def person_list(request):
+    persons = Person.objects.all()
+    context = {'persons': persons}
+    # pasamos a un html en el cual veremos los registros
+    return render(request, 'person_list.html', context)
+
+# Funcion create
+def create_person(request):
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('person_list')
+    else:
+        form = PersonForm()
+    
+    return render(request, 'create_person.html', {'form': form})
+
+# Funcion Update
+def update_person(request, pk):
+    # tratamos errores con get_object_or_404
+    person = get_object_or_404(Person, pk=pk)
+    if request.method == 'POST':
+        form = PersonForm(request.POST, instance=person)
+        if form.is_valid():
+            form.save()
+            return redirect('person_list')
+    else:
+        form = PersonForm(instance=person)
+    return render(request, 'update_person.html', {'form': form})
+
+# Función Delete
+def delete_person(request, pk):
+    person = get_object_or_404(Person, pk=pk)
+    if request.method == 'POST':
+        person.delete()
+        return redirect('person_list')
+    return render(request, 'delete_person.html', {'person': person})

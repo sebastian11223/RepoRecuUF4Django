@@ -216,3 +216,11 @@ def update_person(request, pk):
     else:
         form = PersonForm(instance=person)
     return render(request, 'update_person.html', {'form': form})
+
+# Función Delete
+def delete_person(request, pk):
+    person = get_object_or_404(Person, pk=pk)
+    if request.method == 'POST':
+        person.delete()
+        return redirect('person_list')
+    return render(request, 'delete_person.html', {'person': person})
